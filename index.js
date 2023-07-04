@@ -7,6 +7,7 @@ const backDelete = document.querySelector(".backDelete");
 
 let numerosOperando = [0,0];
 let operador = null;
+let lima = false;
 let resultFinal = 0;
 
 const pegarSimbols = ($evt) => {
@@ -14,11 +15,14 @@ const pegarSimbols = ($evt) => {
   resultFinal = 0;
   operador = $evt.target.textContent;
   resultvalue.value = "";
+  lima = false;
 };
 
 const mapearButtons = () => {
   numOperandos.forEach((item) => {
     item.addEventListener("click", ($evt) => {
+      if(lima) zeraResultado();
+
       let buttonValue = $evt.target.textContent;
       resultvalue.value += buttonValue;
 
@@ -71,7 +75,9 @@ btnVerificarResult.addEventListener("click", () => {
   });
 
   resultCalc(numberFormatResult);
-  numerosOperando[1]= 0;
+  operador = null;
+  lima = true;
+  numerosOperando[1] = 0;
 });
 
 const zeraResultado = () => {
@@ -80,6 +86,7 @@ const zeraResultado = () => {
   operador = null;
   resultFinal = 0;
   resultvalue.value = "";
+  lima = false;
 };
 
 const deleteNum = () => {
